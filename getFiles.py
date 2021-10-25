@@ -8,6 +8,6 @@ with open('gilbridj', 'wb') as writeable:
 
 with open('gilbridj') as readable:
     first_line = readable.readline()
-    new_request = first_line.split(": ")
-    new_request = new_request.split(": ")
+    new_request = first_line.split(": ")[1]
+    new_request = new_request.split(": ")[1]
     print(first_line)
