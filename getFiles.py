@@ -1,5 +1,7 @@
 import requests
 import os
+import shutil
+
 
 query = {'shortname':'gilbridj'}
 response = requests.get("https://cs7ns1.scss.tcd.ie/", params=query)
@@ -27,8 +29,9 @@ if not os.path.exists("./images"):
 for filename in splitContent:
     filename = filename.strip()
     #print(filename)
-    response = requests.get("https://cs7ns1.scss.tcd.ie/"+filename, params=query)
+    response = requests.get("https://cs7ns1.scss.tcd.ie/"+filename, params=query, stream =True)
     with open("images/" + filename, 'wb') as imageFile:
-        imageFile.write(imageFile.content)
+        shutil.copyfileobj(response.raw, imageFile)
+        del response
 
 
