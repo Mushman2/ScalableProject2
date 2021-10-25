@@ -2,33 +2,36 @@ import requests
 import os
 import shutil
 
+if(lensys.argv != 1):
+    print("Script should be passed one argument, your network username.")
 
-query = {'shortname':'gilbridj'}
+shortname = argv[0]
+
+query = {'shortname': shortname}
 response = requests.get("https://cs7ns1.scss.tcd.ie/", params=query)
 
-with open('gilbridj', 'wb') as writeable:
+with open(shortname, 'wb') as writeable:
     writeable.write(response.content)
 
-with open('gilbridj') as readable:
+with open(shortname) as readable:
     content = readable.read()
     path = content.split("<a href='")[1]
     path = path.split("' >")[0]
     print(path)
 
 response = requests.get("https://cs7ns1.scss.tcd.ie/" + path)
-with open('gilbridj.csv', 'wb') as writeable:
+with open(shortname + '.csv', 'wb') as writeable:
     writeable.write(response.content)
 
-with open('gilbridj.csv') as readable:
+with open(shortname '.csv') as readable:
     content = readable.read()
     splitContent = content.split(",")
 
-if not os.path.exists("./images"):
-    os.makedirs("./images")
+if not os.path.exists("./" + shortname + "images"):
+    os.makedirs("./" + shortname + "images")
 
 for filename in splitContent:
     filename = filename.strip()
-    #print(filename)
     response = requests.get("https://cs7ns1.scss.tcd.ie/"+filename, params=query, stream =True)
     with open("images/" + filename, 'wb') as imageFile:
         shutil.copyfileobj(response.raw, imageFile)
