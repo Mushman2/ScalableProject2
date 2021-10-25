@@ -17,4 +17,5 @@ with open('gilbridj-challenge-filenames.csv', 'wb') as writeable:
     writeable.write(response.content)
 
 with open('gilbridj-challenge-filenames.csv') as readable:
-    print(readable.content.decode('utf-8'))
+    content = readable.read()
+    print(content)
