@@ -31,7 +31,7 @@ with open(shortname + '.csv') as readable:
     splitContent = content.split(",")
     print("Split second response.")
 
-dirName = "./" + shortname + "images"
+dirName = "./" + shortname + "_images"
 
 if not os.path.exists(dirName):
     os.makedirs(dirName)
