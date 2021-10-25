@@ -9,7 +9,7 @@ with open('gilbridj', 'wb') as writeable:
 with open('gilbridj') as readable:
     first_line = readable.read()
     #new_request = first_line.split(": ")[2]
-    print(new_request)
+    print(first_line)
 
 '''
 query = {'shortname': new_request}
