@@ -7,5 +7,5 @@ with open('gilbridj', 'wb') as writeable:
     writeable.write(response.content)
 
 with open('gilbridj') as readable:
-    first_line = readable.readLine()
+    first_line = readable.readline()
     print(first_line)
