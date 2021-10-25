@@ -1,6 +1,8 @@
 import requests
 import os
 import shutil
+import sys
+
 
 if(len(sys.argv) != 1):
     print("Script should be passed one argument, your network username.")
