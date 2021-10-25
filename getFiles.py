@@ -8,6 +8,6 @@ if response.status_code != 200:
     print(response)
 
 with open('gilbridj', 'wb') as f:
-    f.write(r.content)
+    f.write(response.content)
 
 print(response.content.decode('utf-8'))
