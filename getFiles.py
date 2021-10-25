@@ -1,4 +1,5 @@
 import requests
+import os
 
 query = {'shortname':'gilbridj'}
 response = requests.get("https://cs7ns1.scss.tcd.ie/", params=query)
@@ -19,6 +20,9 @@ with open('gilbridj.csv', 'wb') as writeable:
 with open('gilbridj.csv') as readable:
     content = readable.read()
     splitContent = content.split(",")
+
+if not os.path.exists("./images"):
+    os.makedirs(".images")
 
 for filename in splitContent:
     filename = filename.strip()
