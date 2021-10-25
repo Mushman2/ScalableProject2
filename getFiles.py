@@ -31,14 +31,16 @@ with open(shortname + '.csv') as readable:
     splitContent = content.split(",")
     print("Split second response.")
 
-if not os.path.exists("./" + shortname + "images"):
-    os.makedirs("./" + shortname + "images")
+dirName = "./" + shortname + "images"
+
+if not os.path.exists(dirName):
+    os.makedirs(dirName)
     print("Created images directory.")
 
 for filename in splitContent:
     filename = filename.strip()
     response = requests.get("https://cs7ns1.scss.tcd.ie/"+filename, params=query, stream =True)
-    with open("images/" + filename, 'wb') as imageFile:
+    with open(dirName + "/" + filename, 'wb') as imageFile:
         shutil.copyfileobj(response.raw, imageFile)
         del response
 
