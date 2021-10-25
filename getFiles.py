@@ -23,7 +23,7 @@ response = requests.get("https://cs7ns1.scss.tcd.ie/" + path)
 with open(shortname + '.csv', 'wb') as writeable:
     writeable.write(response.content)
 
-with open(shortname '.csv') as readable:
+with open(shortname + '.csv') as readable:
     content = readable.read()
     splitContent = content.split(",")
 
