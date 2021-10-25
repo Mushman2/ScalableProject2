@@ -7,10 +7,11 @@ with open('gilbridj', 'wb') as writeable:
     writeable.write(response.content)
 
 with open('gilbridj') as readable:
-    first_line = readable.readline()
-    new_request = first_line.split(": ")[2]
+    first_line = readable.read()
+    #new_request = first_line.split(": ")[2]
     print(new_request)
 
+'''
 query = {'shortname': new_request}
 response = requests.get("https://cs7ns1.scss.tcd.ie/", params=query)
 with open('gilbridj-challenge-filenames.csv', 'wb') as writeable:
@@ -19,3 +20,4 @@ with open('gilbridj-challenge-filenames.csv', 'wb') as writeable:
 with open('gilbridj-challenge-filenames.csv') as readable:
     content = readable.read()
     print(content)
+    '''
