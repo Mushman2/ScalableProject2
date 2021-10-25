@@ -3,7 +3,7 @@ import os
 import shutil
 import sys
 
-if(len(sys.argv) != 1):
+if(len(sys.argv) != 2):
     print("Script should be passed one argument, your network username.")
 
 shortname = sys.argv[0]
