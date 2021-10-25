@@ -18,5 +18,8 @@ with open('gilbridj.csv', 'wb') as writeable:
 
 with open('gilbridj.csv') as readable:
     content = readable.read()
-   # print(content)
+    splitContent = content.split(",")
 
+for filename in splitContent:
+    filename = filename.strip()
+    print(filename + "END")
