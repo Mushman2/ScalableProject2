@@ -2,7 +2,7 @@ import requests
 import os
 import shutil
 
-if(lensys.argv != 1):
+if(len(sys.argv) != 1):
     print("Script should be passed one argument, your network username.")
 
 shortname = argv[0]
