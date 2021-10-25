@@ -7,9 +7,10 @@ with open('gilbridj', 'wb') as writeable:
     writeable.write(response.content)
 
 with open('gilbridj') as readable:
-    first_line = readable.read()
-    #new_request = first_line.split(": ")[2]
-    print(first_line)
+    content = readable.read()
+    content = content.split("<a href='")[1]
+    content = content.split("' >")[0]
+    print(content)
 
 '''
 query = {'shortname': new_request}
