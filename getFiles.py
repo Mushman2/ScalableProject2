@@ -22,7 +22,7 @@ with open('gilbridj.csv') as readable:
     splitContent = content.split(",")
 
 if not os.path.exists("./images"):
-    os.makedirs(".images")
+    os.makedirs("./images")
 
 for filename in splitContent:
     filename = filename.strip()
