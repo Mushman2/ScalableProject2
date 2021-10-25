@@ -3,11 +3,10 @@ import os
 import shutil
 import sys
 
-
 if(len(sys.argv) != 1):
     print("Script should be passed one argument, your network username.")
 
-shortname = argv[0]
+shortname = sys.argv[0]
 
 query = {'shortname': shortname}
 response = requests.get("https://cs7ns1.scss.tcd.ie/", params=query)
