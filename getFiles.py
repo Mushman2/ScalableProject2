@@ -9,4 +9,4 @@ with open('gilbridj', 'wb') as writeable:
 with open('gilbridj') as readable:
     first_line = readable.readline()
     new_request = first_line.split(": ")[2]
-    print(first_line)
+    print(new_request)
