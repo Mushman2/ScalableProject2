@@ -22,4 +22,9 @@ with open('gilbridj.csv') as readable:
 
 for filename in splitContent:
     filename = filename.strip()
-    print(filename + "END")
+    #print(filename)
+    response = requests.get("https://cs7ns1.scss.tcd.ie/"+filename, params=query)
+    with open("images/" + filename, 'wb') as imageFile:
+        imageFile.write(imageFile.content)
+
+
