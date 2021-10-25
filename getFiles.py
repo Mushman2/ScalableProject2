@@ -3,11 +3,9 @@ import requests
 query = {'shortname':'gilbridj'}
 response = requests.get("https://cs7ns1.scss.tcd.ie/", params=query)
 
-if response.status_code != 200:
-    print("error getting file")
-    print(response)
+with open('gilbridj', 'wb') as writeable:
+    writeable.write(response.content)
 
-with open('gilbridj', 'wb') as f:
-    f.write(response.content)
-
-print(response.content.decode('utf-8'))
+with open('gilbridj') as readable:
+    first_line = readable.readLine()
+    print(first_line)
