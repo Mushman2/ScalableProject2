@@ -53,7 +53,7 @@ for filename in splitContent:
         path = content.split("<a href='")[1]
         path = path.split("' >")[0]
 
-    response = requests.get("https://cs7ns1.scss.tcd.ie/" + path)
+    response = requests.get("https://cs7ns1.scss.tcd.ie/" + path, stream=True)
 
     with open(imageDirName + "/" + filename, 'wb') as imageFile:
         response.raw.decode_content = True
