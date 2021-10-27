@@ -39,7 +39,8 @@ if not os.path.exists(dirName):
 
 for filename in splitContent:
     filename = filename.strip()
-    response = requests.get("https://cs7ns1.scss.tcd.ie/"+filename, params=query, stream =True)
+    query = {'shortname': shortname, 'myfilename': filename}
+    response = requests.get("https://cs7ns1.scss.tcd.ie/", params=query, stream=True)    
     with open(dirName + "/" + filename, 'wb') as imageFile:
         response.raw.decode_content = True
         shutil.copyfileobj(response.raw, imageFile)
