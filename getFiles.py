@@ -31,16 +31,32 @@ with open(shortname + '.csv') as readable:
     splitContent = content.split(",")
     print("Split second response.")
 
-dirName = "./" + shortname + "_images"
+htmlDirName = "./" + shortname + "_htmls"
+if not os.path.exists(htmlDirName):
+    os.makedirs(htmlDirName)
+    print("Created htmls directory.")
 
-if not os.path.exists(dirName):
-    os.makedirs(dirName)
+imageDirName = "./" + shortname + "_images"
+if not os.path.exists(imageDirName):
+    os.makedirs(imageDirName)
     print("Created images directory.")
 
 for filename in splitContent:
     filename = filename.strip()
-    response = requests.get("https://cs7ns1.scss.tcd.ie/"+filename, params=query, stream =True)
-    with open(dirName + "/" + filename, 'wb') as imageFile:
+    query = {'shortname': shortname, 'myfilename': filename}
+    response = requests.get("https://cs7ns1.scss.tcd.ie/", params=query, stream=True) 
+    with open(htmlDirName + "/" + filename + ".html", 'wb') as writeable:
+        writeable.write(response.content)
+
+    with open(htmlDirName + "/" + filename + ".html") as readable:
+        content = readable.read()
+        path = content.split("<a href='")[1]
+        path = path.split("' >")[0]
+
+    response = requests.get("https://cs7ns1.scss.tcd.ie/" + path, stream=True)
+
+    with open(imageDirName + "/" + filename, 'wb') as imageFile:
+        response.raw.decode_content = True
         shutil.copyfileobj(response.raw, imageFile)
         del response
 
