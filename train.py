@@ -76,7 +76,7 @@ class ImageSequence(keras.utils.Sequence):
 
             for j, ch in enumerate(image_label):
                 y[j][i, :] = 0
-                if ch == "a": ch = '!'
+                if ch == "a": ch = ':'
                 if ch == "b": ch = '\\'
                 if ch == "c": ch = '|'
                 if ch == " ":
