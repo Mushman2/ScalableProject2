@@ -14,7 +14,7 @@ import tensorflow as tf
 import tensorflow.keras as keras
 
 # Build a Keras model given some parameters
-def create_model(captcha_length, captcha_num_symbols, input_shape, model_depth=5, module_size=2):
+def create_model(captcha_length, captcha_num_symbols, input_shape, model_depth=5, module_size=3):
   input_tensor = keras.Input(input_shape)
   x = input_tensor
   for i, module_length in enumerate([module_size] * model_depth):
