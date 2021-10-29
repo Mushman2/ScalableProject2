@@ -14,7 +14,7 @@ import tensorflow as tf
 import tensorflow.keras as keras
 
 # Build a Keras model given some parameters
-def create_model(captcha_length, captcha_num_symbols, input_shape, model_depth=5, module_size=5):
+def create_model(captcha_length, captcha_num_symbols, input_shape, model_depth=5, module_size=2):
   input_tensor = keras.Input(input_shape)
   x = input_tensor
   for i, module_length in enumerate([module_size] * model_depth):
@@ -45,6 +45,9 @@ class ImageSequence(keras.utils.Sequence):
         file_list = os.listdir(self.directory_name)
         random.shuffle(file_list)
         self.files = dict(zip(map(lambda x: x.split('.')[0], file_list), file_list))
+        self.key_list = list(self.files.keys())
+        
+
         self.count = len(file_list)
 
     def __len__(self):
@@ -56,8 +59,9 @@ class ImageSequence(keras.utils.Sequence):
 
         for i in range(self.batch_size):
 
-            image_label = list(self.files.keys())[idx*self.batch_size+i]
+            image_label = self.key_list[idx*self.batch_size+i]
             image_file = self.files[image_label]
+
             raw_data = cv2.imread(os.path.join(self.directory_name, image_file))
             rgb_data = cv2.cvtColor(raw_data, cv2.COLOR_BGR2RGB)
             processed_data = numpy.array(rgb_data) / 255.0
@@ -72,7 +76,9 @@ class ImageSequence(keras.utils.Sequence):
 
             for j, ch in enumerate(image_label):
                 y[j][i, :] = 0
-                if ch == "!": ch = ':'
+                if ch == "a": ch = '!'
+                if ch == "b": ch = '\\'
+                if ch == "c": ch = '|'
                 if ch == " ":
                     y[j][i, len(self.captcha_symbols)] = 1
                 else:
@@ -121,8 +127,6 @@ def main():
     # tf.config.experimental.set_memory_growth(physical_devices[0], True)
 
     with tf.device('/device:GPU:0'):
-    # with tf.device('/device:CPU:0'):
-    # with tf.device('/device:XLA_CPU:0'):
         model = create_model(captchaMaxLength, len(captcha_symbols) + 1, (captchaHeight, captchaWidth, 3))
 
         if args.input_model is not None:
@@ -137,9 +141,7 @@ def main():
         training_data = ImageSequence(args.train_dataset, batchSize, captchaMaxLength, captcha_symbols, captchaWidth, captchaHeight)
         validation_data = ImageSequence(args.validate_dataset, batchSize, captchaMaxLength, captcha_symbols, captchaWidth, captchaHeight)
 
-        callbacks = [#keras.callbacks.EarlyStopping(patience=3),
-                     # keras.callbacks.CSVLogger('log.csv'),
-                     keras.callbacks.ModelCheckpoint(args.output_model_name+'.h5', save_best_only=False)]
+        callbacks = [keras.callbacks.ModelCheckpoint(args.output_model_name+'.h5', save_best_only=False)]
 
         # Save the model architecture to JSON
         with open(args.output_model_name+".json", "w") as json_file:

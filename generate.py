@@ -45,13 +45,12 @@ def main():
 
     for i in range(args.count):
         random_str = ''.join([random.choice(captcha_symbols) for j in range(random.randint(captchaMinLength, captchaMaxLength))])
-        image_path = os.path.join(args.output_dir, random_str+'.png')
+        image_path = os.path.join(args.output_dir, random_str.replace(":","a").replace("\\","b").replace("|","c")+'.png')
         if os.path.exists(image_path):
             version = 1
-            while os.path.exists(os.path.join(args.output_dir, random_str + '_' + str(version) + '.png')):
+            while os.path.exists(os.path.join(args.output_dir, random_str.replace(":","a").replace("\\","b").replace("|","c") + '_' + str(version) + '.png')):
                 version += 1
-            image_path = os.path.join(args.output_dir, random_str + '_' + str(version) + '.png')
-        image_path = image_path.replace(":","!")
+            image_path = os.path.join(args.output_dir, random_str.replace(":","a").replace("\\","b").replace("|","c") + '_' + str(version) + '.png')
         image = numpy.array(captcha_generator.generate_image(random_str))
         cv2.imwrite(image_path, image)
 
