@@ -21,6 +21,7 @@ def main():
     parser.add_argument('--captcha-dir', help='Where to read the captchas to break', type=str)
     parser.add_argument('--output', help='File where the classifications should be saved', type=str)
     parser.add_argument('--symbols', help='File with the symbols to use in captchas', type=str)
+    parser.add_argument('--username', help='TCD Username', type=str)
     args = parser.parse_args()
 
     if args.model_name is None:
@@ -39,6 +40,10 @@ def main():
         print("Please specify the captcha symbols file")
         exit(1)
 
+    if args.username is None:
+        print("Please specify your TCD Username")
+        exit(1)
+
     symbols_file = open(args.symbols, 'r')
     captcha_symbols = symbols_file.readline().strip()
     symbols_file.close()
@@ -51,7 +56,7 @@ def main():
         interpreter.allocate_tensors()
         input_details = interpreter.get_input_details()
         output_details = interpreter.get_output_details()
-        output_file.write('hartigam\n')
+        output_file.write(args.username + '\n')
         for x in sorted (os.listdir(args.captcha_dir)):
             # load image and preprocess it
             raw_data = cv2.imread(os.path.join(args.captcha_dir, x))
