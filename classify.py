@@ -69,7 +69,7 @@ def main():
             interpreter.invoke()
             #print('\nClassified ' + x + ',')
             output_file.write(x + ",")
-            for i in range(5):
+            for i in range(6):
                 #print(decode(captcha_symbols, interpreter.get_tensor(output_details[i]['index'])))
                 output_file.write(decode(captcha_symbols, interpreter.get_tensor(output_details[i]['index'])))
             output_file.write('\n')
