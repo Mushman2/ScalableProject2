@@ -13,7 +13,7 @@ import argparse
 import tflite_runtime.interpreter as tflite
 
 def decode(characters, y):
-    if numpy.argmax(y) == characters.len(): return ""
+    if numpy.argmax(y) == len(characters): return ""
     return characters[numpy.argmax(y)]
 
 def main():
