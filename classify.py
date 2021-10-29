@@ -67,13 +67,14 @@ def main():
             image = image.reshape([-1, c, h, w])
             interpreter.set_tensor(input_details[0]['index'], image)
             interpreter.invoke()
-            print('\nClassified ' + x + ',')
+            #print('\nClassified ' + x + ',')
             output_file.write(x + ",")
             for i in range(5):
                 #print(decode(captcha_symbols, interpreter.get_tensor(output_details[i]['index'])))
                 output_file.write(decode(captcha_symbols, interpreter.get_tensor(output_details[i]['index'])))
             output_file.write('\n')
             #print('Classified ' + x + ',' + decode(captcha_symbols, prediction))
+        print("done.")
 
 if __name__ == '__main__':
     main()
