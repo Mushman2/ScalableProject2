@@ -78,7 +78,6 @@ class ImageSequence(keras.utils.Sequence):
                 y[j][i, :] = 0
                 if ch == "a": ch = ':'
                 if ch == "b": ch = '\\'
-                if ch == "c": ch = '|'
                 if ch == " ":
                     y[j][i, len(self.captcha_symbols)] = 1
                 else:

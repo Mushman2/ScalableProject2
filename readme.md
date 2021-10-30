@@ -18,4 +18,4 @@ Eg. > python classify.py --model-name model --captcha-dir username_images --outp
 - Some symbols don't work in filenames, and are substituted thusly:
 - ':' -> 'a'
 - '\' -> 'b'
-- '|' -> 'c'
+- '|' -> 'd' # Removed, '|' does not appear to be present in the captcha set.
