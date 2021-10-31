@@ -60,7 +60,6 @@ def main():
         output_details = interpreter.get_output_details()
         output_file.write(args.username + '\n')
         for x in sorted (os.listdir(args.captcha_dir)):
-            # load image and preprocess it
             raw_data = cv2.imread(os.path.join(args.captcha_dir, x))
             rgb_data = cv2.cvtColor(raw_data, cv2.COLOR_BGR2RGB)
             image = (numpy.array(rgb_data) / 255.0).astype(numpy.float32)
@@ -68,13 +67,10 @@ def main():
             image = image.reshape([-1, c, h, w])
             interpreter.set_tensor(input_details[0]['index'], image)
             interpreter.invoke()
-            #print('\nClassified ' + x + ',')
             output_file.write(x + ",")
             for i in range(6):
-                #print(decode(captcha_symbols, interpreter.get_tensor(output_details[i]['index'])))
                 output_file.write(decode(captcha_symbols, interpreter.get_tensor(output_details[i]['index'])))
             output_file.write('\n')
-            #print('Classified ' + x + ',' + decode(captcha_symbols, prediction))
         print("done.")
 
 if __name__ == '__main__':

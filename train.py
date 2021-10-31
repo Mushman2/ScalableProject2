@@ -14,8 +14,7 @@ import tensorflow as tf
 import tensorflow.keras as keras
 import datetime
 
-# Build a Keras model given some parameters
-def create_model(captcha_length, captcha_num_symbols, input_shape, model_depth=5, module_size=3):
+def create_model(captcha_length, captcha_num_symbols, input_shape, model_depth=5, module_size=2):
   input_tensor = keras.Input(input_shape)
   x = input_tensor
   for i, module_length in enumerate([module_size] * model_depth):
@@ -31,9 +30,6 @@ def create_model(captcha_length, captcha_num_symbols, input_shape, model_depth=5
 
   return model
 
-# A Sequence represents a dataset for training in Keras
-# In this case, we have a folder full of images
-# Elements of a Sequence are *batches* of images, of some size batch_size
 class ImageSequence(keras.utils.Sequence):
     def __init__(self, directory_name, batch_size, captcha_length, captcha_symbols, captcha_width, captcha_height):
         self.directory_name = directory_name
@@ -67,9 +63,6 @@ class ImageSequence(keras.utils.Sequence):
             rgb_data = cv2.cvtColor(raw_data, cv2.COLOR_BGR2RGB)
             processed_data = numpy.array(rgb_data) / 255.0
             X[i] = processed_data
-
-            # We have a little hack here - we save captchas as TEXT_num.png if there is more than one captcha with the text "TEXT"
-            # So the real label should have the "_num" stripped out.
 
             image_label = image_label.split('_')[0]
             while len(image_label) < 6:
@@ -122,10 +115,6 @@ def main():
     with open(symbolsDir) as symbols_file:
         captcha_symbols = symbols_file.readline()
 
-    # physical_devices = tf.config.experimental.list_physical_devices('GPU')
-    # assert len(physical_devices) > 0, "No GPU available!"
-    # tf.config.experimental.set_memory_growth(physical_devices[0], True)
-
     with tf.device('/device:GPU:0'):
         model = create_model(captchaMaxLength, len(captcha_symbols) + 1, (captchaHeight, captchaWidth, 3))
 
@@ -143,7 +132,6 @@ def main():
 
         callbacks = [keras.callbacks.ModelCheckpoint(args.output_model_name+'.h5', save_best_only=False)]
 
-        # Save the model architecture to JSON
         with open(args.output_model_name+".json", "w") as json_file:
             json_file.write(model.to_json())
 
@@ -157,11 +145,9 @@ def main():
             print('KeyboardInterrupt caught, saving current weights as ' + args.output_model_name+'_resume.h5')
             model.save_weights(args.output_model_name+'_resume.h5')
 
-        # Convert the model.
         converter = tf.lite.TFLiteConverter.from_keras_model(model)
         tflite_model = converter.convert()
 
-        # Save the model.
         with open(args.output_model_name+'.tflite', 'wb') as f:
             f.write(tflite_model)
 
