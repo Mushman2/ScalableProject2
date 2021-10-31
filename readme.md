@@ -36,31 +36,30 @@ The file retrieval is a four-step process.
 2. The script parses the link out and fetches this CSV. 
 3. The script iterates through the CSV and contacts the image server with each filename and the shortname. Each response is a HTML page containing a link element to the image. 
 4. The script parses out each link and saves each image response. 
-
 #### Timing:
-Lorem ipsum.
+5 minutes on the **Raspberry Pi**.
 
 ### Preparation / pre processing
-Lorem ipsum
+Pre processing took the form of updating the symbol set to best fit the data. We took this approach because refining the symbol set was the approach taken by the highest scoring submissions in Project 1. Piazza was extremely helpful for this as it allowed the class to collaborate and add/remove characters since the set was quite different to project 1. We made some changes to the list on Piazza to best fit our data, including removing some characters that may have been valid but did not come up enough in our data to justify their similarity with other characters which may confuse the Model
 #### Timing:
-Lorem ipsum.
+N/A
 
 ### Training set creation
-Lorem ipsum
+The image generation code was adapted from that of the first assignment code. Some argumnts were changed to constants to make it easier to use for the user, such as the width, height, symbols file and captcha length, as these were constants for this particular problem. Each captcha was of variable length rather than fixed length, between 1 and 6. Some characters in the symbol set were unsuitable for file names, so these were substituted for suitable characters not in the symbol set. The training script would later read the filenames and make the substitutions back before training. We chose to train with 500k images.
 #### Timing:
-Around 1.5 hours, 500K images
+1.5 hours on **personal machine**.
 
 ### Validation set creation
-Lorem ipsum
+The validation images were created using the same code as the training images. We chose to use 25k images for validation.
 #### Timing:
-Around 5 Mins, 25K images
+5 Minutes on **personal machine**.
 
 ### Model Training
 
 #### Timing
 GPU training, batch size 32, 500K training data points, 5 epochs. ~2.5 Hours. 
 
-### Solution file generation
-Lorem ipsum
+### Classification
+The image classification remained unchanged from the first assignment, as the changes were captured in the model passed to the classification script. The script uses a TensorFlow Lite interpreter on the model. It loads each image in the image directory using OpenCV, and puts it through the interpreter. Each result is written to the CSV output file.
 #### Timing:
-Lorem ipsum.
+5 minutes on the **Raspberry Pi**.
