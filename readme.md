@@ -1,5 +1,6 @@
 # Scalable Project 2
 ## Usage
+
 ### Get Files:
 Retrieves the image files for the specified username and places them in a `username_images` repository.
 
@@ -7,25 +8,26 @@ Retrieves the image files for the specified username and places them in a `usern
 
 ### Generate:
 Generates captchas for use in training
-
 `python generate.py --count 250000 --output-dir train`
+
+
 
 ### Train: 
 Trains a model and outputs it as a tflite file.
-
 `python train.py --train-dataset train --validate-dataset test --output-model-name model --epochs 5`
+
+
 
 ### Classify
 Uses a tensorflow-lite model to classify captchas. 
-
 `python classify.py --model-name model --captcha-dir username_images --output username_model.csv --symbols symbols.txt --username username`
- 
+
+
 ## Symbol substitution:
 - An extra symbol is used in the ML model to represent padding to 6 characters, represented by an index equal to the lenght of the symbol list
 - Some symbols don't work in filenames, and are substituted thusly:
 - ':' -> 'a'
 - '\' -> 'b'
-- '|' -> 'd' # Removed, '|' does not appear to be present in the captcha set.
 
 ## Summary Details
 ### File retrieval
@@ -46,12 +48,17 @@ Lorem ipsum.
 ### Training set creation
 Lorem ipsum
 #### Timing:
-Lorem ipsum.
+Around 1.5 hours, 500K images
 
 ### Validation set creation
 Lorem ipsum
 #### Timing:
-Lorem ipsum.
+Around 5 Mins, 25K images
+
+### Model Training
+
+#### Timing
+GPU training, batch size 32, 500K training data points, 5 epochs. ~2.5 Hours. 
 
 ### Solution file generation
 Lorem ipsum
