@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import requests
 import os
 import shutil
@@ -72,3 +74,6 @@ def main():
             del response
 
     print("Complete.")
+
+if __name__ == '__main__':
+    main()
