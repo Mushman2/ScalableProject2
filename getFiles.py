@@ -57,7 +57,7 @@ def main():
 
     for filename in splitContent:
         filename = filename.strip()
-        if len(filename) != 0
+        if not(len(filename) == 0)
             query = {'shortname': shortname, 'myfilename': filename}
             response = requests.get("https://cs7ns1.scss.tcd.ie/", params=query, stream=True) 
             with open(htmlDirName + "/" + filename + ".html", 'wb') as writeable:
