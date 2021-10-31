@@ -78,4 +78,6 @@ def main():
     print("Complete.")
 
 if __name__ == '__main__':
+    begin_time = datetime.datetime.now()
     main()
+    print(datetime.datetime.now() - begin_time)
