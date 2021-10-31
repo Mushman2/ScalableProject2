@@ -12,6 +12,7 @@ import random
 import argparse
 import tensorflow as tf
 import tensorflow.keras as keras
+import datetime
 
 # Build a Keras model given some parameters
 def create_model(captcha_length, captcha_num_symbols, input_shape, model_depth=5, module_size=3):
@@ -166,4 +167,6 @@ def main():
             f.write(tflite_model)
 
 if __name__ == '__main__':
+    begin_time = datetime.datetime.now()
     main()
+    print(datetime.datetime.now() - begin_time)

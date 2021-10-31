@@ -11,6 +11,7 @@ import string
 import random
 import argparse
 import tflite_runtime.interpreter as tflite
+import datetime
 
 def decode(characters, y):
     if numpy.argmax(y) == len(characters): return ""
@@ -77,4 +78,6 @@ def main():
         print("done.")
 
 if __name__ == '__main__':
+    begin_time = datetime.datetime.now()
     main()
+    print(datetime.datetime.now() - begin_time)

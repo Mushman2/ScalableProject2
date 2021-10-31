@@ -7,6 +7,7 @@ import string
 import cv2
 import argparse
 import captcha.image
+import datetime
 
 def main():
     parser = argparse.ArgumentParser()
@@ -55,4 +56,6 @@ def main():
         cv2.imwrite(image_path, image)
 
 if __name__ == '__main__':
+    begin_time = datetime.datetime.now()
     main()
+    print(datetime.datetime.now() - begin_time)
