@@ -1,20 +1,26 @@
 # Scalable Project 2
 ## Usage
+
+### Get Files:
+Retrieves the image files for the specified username and places them in a `username_images` repository.
+
+`python getFiles.py --username username`
+
 ### Generate:
 Generates captchas for use in training
-Eg. > python generate.py --count 500000 --output-dir train
+`python generate.py --count 250000 --output-dir train`
 
-Timing: Around 1.5 hours, 500K images, was running in background most of the time
+
 
 ### Train: 
 Trains a model and outputs it as a tflite file.
-Eg. > python train.py --train-dataset train --validate-dataset test --output-model-name model --epochs 5
+`python train.py --train-dataset train --validate-dataset test --output-model-name model --epochs 5`
 
-Timing: GPU training, batch size 32, 500K training data points, 5 epochs. ~2.5 Hours. 
+
 
 ### Classify
 Uses a tensorflow-lite model to classify captchas. 
-Eg. > python classify.py --model-name model --captcha-dir username_images --output username_model.csv --symbols symbols.txt --username username
+`python classify.py --model-name model --captcha-dir username_images --output username_model.csv --symbols symbols.txt --username username`
 
 
 ## Symbol substitution:
@@ -22,4 +28,39 @@ Eg. > python classify.py --model-name model --captcha-dir username_images --outp
 - Some symbols don't work in filenames, and are substituted thusly:
 - ':' -> 'a'
 - '\' -> 'b'
-- '|' -> 'd' # Removed, '|' does not appear to be present in the captcha set.
+
+## Summary Details
+### File retrieval
+The file retrieval is a four-step process. 
+1. The script contacts the image server with the shortname of the user. This returns a HTML page containing a link element to the CSV of image names. 
+2. The script parses the link out and fetches this CSV. 
+3. The script iterates through the CSV and contacts the image server with each filename and the shortname. Each response is a HTML page containing a link element to the image. 
+4. The script parses out each link and saves each image response. 
+
+#### Timing:
+Lorem ipsum.
+
+### Preparation / pre processing
+Lorem ipsum
+#### Timing:
+Lorem ipsum.
+
+### Training set creation
+Lorem ipsum
+#### Timing:
+Around 1.5 hours, 500K images
+
+### Validation set creation
+Lorem ipsum
+#### Timing:
+Around 5 Mins, 25K images
+
+### Model Training
+
+#### Timing
+GPU training, batch size 32, 500K training data points, 5 epochs. ~2.5 Hours. 
+
+### Solution file generation
+Lorem ipsum
+#### Timing:
+Lorem ipsum.
