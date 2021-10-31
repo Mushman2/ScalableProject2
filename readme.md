@@ -2,11 +2,15 @@
 ## Usage
 ### Generate:
 Generates captchas for use in training
-Eg. > python generate.py --count 250000 --output-dir train
+Eg. > python generate.py --count 500000 --output-dir train
+
+Timing: Around 1.5 hours, 500K images, was running in background most of the time
 
 ### Train: 
 Trains a model and outputs it as a tflite file.
 Eg. > python train.py --train-dataset train --validate-dataset test --output-model-name model --epochs 5
+
+Timing: GPU training, batch size 32, 500K training data points, 5 epochs. ~2.5 Hours. 
 
 ### Classify
 Uses a tensorflow-lite model to classify captchas. 
