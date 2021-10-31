@@ -3,25 +3,19 @@
 
 ### Get Files:
 Retrieves the image files for the specified username and places them in a `username_images` repository.
-
 `python getFiles.py --username username`
 
 ### Generate:
 Generates captchas for use in training
 `python generate.py --count 250000 --output-dir train`
 
-
-
 ### Train: 
 Trains a model and outputs it as a tflite file.
 `python train.py --train-dataset train --validate-dataset test --output-model-name model --epochs 5`
 
-
-
 ### Classify
 Uses a tensorflow-lite model to classify captchas. 
 `python classify.py --model-name model --captcha-dir username_images --output username_model.csv --symbols symbols.txt --username username`
-
 
 ## Symbol substitution:
 - An extra symbol is used in the ML model to represent padding to 6 characters, represented by an index equal to the lenght of the symbol list
@@ -55,11 +49,11 @@ The validation images were created using the same code as the training images. W
 5 Minutes on **personal machine**.
 
 ### Model Training
-
+The Training script was also adapted from that used for the first assignment. The conversion to a TFLite model was added to the end of the script, so the output would automatically be ready to run on the pi. When reading the traning data, files with less than six characters were padded with an extra symbol so that they would all be of the same length. This allows the same model to process captchas of any length (Up to 6). We used a batch size of 32, and ran over 5 epochs.
 #### Timing
-GPU training, batch size 32, 500K training data points, 5 epochs. ~2.5 Hours. 
+2.5 Hours on **Personal Machine**.
 
 ### Classification
-The image classification remained unchanged from the first assignment, as the changes were captured in the model passed to the classification script. The script uses a TensorFlow Lite interpreter on the model. It loads each image in the image directory using OpenCV, and puts it through the interpreter. Each result is written to the CSV output file.
+The image classification remained unchanged from the first assignment, as the changes were captured in the model passed to the classification script. The script uses a TensorFlow Lite interpreter on the model. It loads each image in the image directory using OpenCV, and puts it through the interpreter. Each result is written to the CSV output file. The padding characters are ignored in the output, so the result is of the correct length. 
 #### Timing:
 5 minutes on the **Raspberry Pi**.
