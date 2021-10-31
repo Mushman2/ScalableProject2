@@ -57,22 +57,23 @@ def main():
 
     for filename in splitContent:
         filename = filename.strip()
-        query = {'shortname': shortname, 'myfilename': filename}
-        response = requests.get("https://cs7ns1.scss.tcd.ie/", params=query, stream=True) 
-        with open(htmlDirName + "/" + filename + ".html", 'wb') as writeable:
-            writeable.write(response.content)
+        if len(filename != 0)
+            query = {'shortname': shortname, 'myfilename': filename}
+            response = requests.get("https://cs7ns1.scss.tcd.ie/", params=query, stream=True) 
+            with open(htmlDirName + "/" + filename + ".html", 'wb') as writeable:
+                writeable.write(response.content)
 
-        with open(htmlDirName + "/" + filename + ".html") as readable:
-            content = readable.read()
-            path = content.split("<a href='")[1]
-            path = path.split("' >")[0]
+            with open(htmlDirName + "/" + filename + ".html") as readable:
+                content = readable.read()
+                path = content.split("<a href='")[1]
+                path = path.split("' >")[0]
 
-        response = requests.get("https://cs7ns1.scss.tcd.ie/" + path, stream=True)
+            response = requests.get("https://cs7ns1.scss.tcd.ie/" + path, stream=True)
 
-        with open(imageDirName + "/" + filename, 'wb') as imageFile:
-            response.raw.decode_content = True
-            shutil.copyfileobj(response.raw, imageFile)
-            del response
+            with open(imageDirName + "/" + filename, 'wb') as imageFile:
+                response.raw.decode_content = True
+                shutil.copyfileobj(response.raw, imageFile)
+                del response
 
     print("Complete.")
 
