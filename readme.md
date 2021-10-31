@@ -36,7 +36,7 @@ The file retrieval is a four-step process.
 4. The script parses out each link and saves each image response. 
 
 #### Timing:
-Lorem ipsum.
+00h 05m 05s on the **Raspberry Pi**.
 
 ### Preparation / pre processing
 Lorem ipsum
