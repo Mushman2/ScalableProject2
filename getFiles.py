@@ -76,6 +76,7 @@ def main():
                 shutil.copyfileobj(response.raw, imageFile)
                 del response
 
+    os.rmdir(htmlDirName)
     print("Complete.")
 
 if __name__ == '__main__':

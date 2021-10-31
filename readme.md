@@ -29,7 +29,12 @@ Uses a tensorflow-lite model to classify captchas.
 
 ## Summary Details
 ### File retrieval
-Lorem ipsum
+The file retrieval is a four-step process. 
+1. The script contacts the image server with the shortname of the user. This returns a HTML page containing a link element to the CSV of image names. 
+2. The script parses the link out and fetches this CSV. 
+3. The script iterates through the CSV and contacts the image server with each filename and the shortname. Each response is a HTML page containing a link element to the image. 
+4. The script parses out each link and saves each image response. 
+
 #### Timing:
 Lorem ipsum.
 
